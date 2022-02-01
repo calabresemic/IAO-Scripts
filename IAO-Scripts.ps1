@@ -52,9 +52,9 @@ Function Check-ScriptHash {
             Exit
         }
     } else {
-        $hashSrc = Get-FileHash "$env:LOGONSERVER\netlogon\IAO_Scripts\$ScriptName" -Algorithm "SHA256"
+        $hashSrc = Get-FileHash "$env:LOGONSERVER\netlogon\IAO_Scripts\Production_Scripts\$ScriptName" -Algorithm "SHA256"
         if ($hashSrc.Hash -ne $hashDest.Hash) {
-            robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts" "$env:SystemDrive\IAO_Scripts" $ScriptName | Out-Null
+            robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts\Production_Scripts" "$env:SystemDrive\IAO_Scripts" $ScriptName | Out-Null
             $CommandLine = "-WindowStyle Hidden -File `"" + $PSCommandPath + "`" "
             Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
             Exit
@@ -116,9 +116,9 @@ Function Update-IAOScripts {
 
     if($Beta){
         Write-Host "Syncing Forms with the domain master copy"
-        robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts\Beta_Scripts" "$env:SystemDrive\BetaIAO_Scripts" /MIR
+        robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts\BetaIAO_Scripts" "$env:SystemDrive\BetaIAO_Scripts" /MIR
     } else {
-        robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts" "$env:SystemDrive\IAO_Scripts" /MIR
+        robocopy.exe "$env:LOGONSERVER\netlogon\IAO_Scripts\Production_Scripts" "$env:SystemDrive\IAO_Scripts" /MIR
     }
 }
 
