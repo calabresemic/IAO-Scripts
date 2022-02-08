@@ -96,11 +96,11 @@ Function Initialize-DataGridView {
 
     #Handle passing filter
     if($AdditionalFilter) {
-        Get-ADSIUser -SearchRoot $searchbase -propertiesToLoad name,extensionattribute7 -AdditionalFilter $AdditionalFilter | ForEach-Object {
+        Get-ADSIUser -SearchRoot $searchbase -propertiesToLoad name,extensionattribute7 -AdditionalFilter $AdditionalFilter | Sort-Object name | ForEach-Object {
             $DataGridView.Rows.Add([string]$_.name, [string]$_.extensionattribute7, 'Validate')
         }
     } else {
-        Get-ADSIUser -SearchRoot $searchbase -propertiesToLoad name,extensionattribute7 | ForEach-Object {
+        Get-ADSIUser -SearchRoot $searchbase -propertiesToLoad name,extensionattribute7 | Sort-Object name | ForEach-Object {
             $DataGridView.Rows.Add([string]$_.name, [string]$_.extensionattribute7, 'Validate')
         }
     }
